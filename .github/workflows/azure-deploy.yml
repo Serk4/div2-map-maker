@@ -8,6 +8,7 @@ on:
 
 jobs:
   deploy:
+    if: false # Paused until Azure is set up and credentials are added
     runs-on: ubuntu-latest
 
     steps:
