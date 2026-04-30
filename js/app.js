@@ -34,27 +34,24 @@ const MAP_DEFAULTS = {
 
 /** Division 2 named-zone labels with approximate real-DC coordinates */
 const DIV2_ZONES = [
-  { name: 'The White House',         lat: 38.8977, lng: -77.0365 },
-  { name: 'Downtown West',           lat: 38.9001, lng: -77.0430 },
-  { name: 'Downtown East',           lat: 38.8985, lng: -77.0255 },
-  { name: 'Federal Triangle',        lat: 38.8935, lng: -77.0290 },
-  { name: 'Constitution Hall',       lat: 38.8888, lng: -77.0443 },
-  { name: 'Judiciary Square',        lat: 38.9005, lng: -77.0161 },
-  { name: 'Penn Quarter',            lat: 38.8953, lng: -77.0218 },
-  { name: 'Chinatown',               lat: 38.9018, lng: -77.0224 },
-  { name: 'West Potomac Park',       lat: 38.8853, lng: -77.0466 },
-  { name: 'East Mall',               lat: 38.8885, lng: -77.0192 },
-  { name: 'Lincoln Memorial',        lat: 38.8893, lng: -77.0502 },
-  { name: 'Foggy Bottom',            lat: 38.8995, lng: -77.0530 },
-  { name: 'Georgetown',              lat: 38.9072, lng: -77.0634 },
-  { name: 'Mount Vernon Triangle',   lat: 38.9042, lng: -77.0183 },
-  { name: 'Southwest Waterfront',    lat: 38.8793, lng: -77.0256 },
-  { name: 'National Mall',           lat: 38.8893, lng: -77.0348 },
-  { name: 'Capitol Hill',            lat: 38.8897, lng: -77.0086 },
-  { name: 'Roosevelt Island',        lat: 38.8963, lng: -77.0622 },
-  { name: 'Columbia Heights',        lat: 38.9281, lng: -77.0353 },
-  { name: 'Shaw',                    lat: 38.9120, lng: -77.0225 },
-  { name: 'Stronghold: Capitol',     lat: 38.8898, lng: -77.0089 },
+  // ── Districts ──
+  { name: 'White House',        lat: 38.8977, lng: -77.0365 },
+  { name: 'Downtown East',      lat: 38.8985, lng: -77.0255 },
+  { name: 'Federal Triangle',   lat: 38.8935, lng: -77.0290 },
+  { name: 'East Mall',          lat: 38.8885, lng: -77.0192 },
+  { name: 'Southwest',          lat: 38.8793, lng: -77.0256 },
+  { name: 'Downtown West',      lat: 38.9001, lng: -77.0430 },
+  { name: 'Constitution Hall',  lat: 38.8888, lng: -77.0443 },
+  { name: 'West Potomac Park',  lat: 38.8853, lng: -77.0466 },
+  { name: 'Foggy Bottom',       lat: 38.8995, lng: -77.0530 },
+  { name: 'West End',           lat: 38.9015, lng: -77.0494 },
+  { name: 'Judiciary Square',   lat: 38.9005, lng: -77.0161 },
+  { name: 'Roosevelt Island',   lat: 38.8963, lng: -77.0622 },
+  { name: 'Capitol Hill',       lat: 38.8897, lng: -77.0086 },
+  // ── Dark Zones ──
+  { name: 'Dark Zone East',     lat: 38.9020, lng: -77.0020, dark: true },
+  { name: 'Dark Zone South',    lat: 38.8770, lng: -77.0280, dark: true },
+  { name: 'Dark Zone West',     lat: 38.9050, lng: -77.0650, dark: true },
 ];
 
 /** Pin categories – id, display name, colour, emoji */
@@ -130,7 +127,7 @@ function addZoneLabels() {
     dummy.bindTooltip(zone.name, {
       permanent: true,
       direction: 'center',
-      className: 'zone-label',
+      className: zone.dark ? 'zone-label zone-label--dark' : 'zone-label',
       opacity: 1,
     });
   });
