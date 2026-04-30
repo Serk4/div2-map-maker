@@ -431,6 +431,10 @@ input[type="text"]:focus {
   text-shadow: 0 0 6px #000, 0 0 3px #000;
 }
 .leaflet-tooltip.zone-label::before { display: none; }
+.leaflet-tooltip.zone-label--dark {
+  color: rgba(255, 80, 60, 0.55);
+  text-shadow: 0 0 6px #000, 0 0 3px #600;
+}
 
 /* ── Leaflet overrides (dark UI) ── */
 .leaflet-control-zoom a {
