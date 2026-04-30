@@ -1,0 +1,504 @@
+/* ────────────────────────────────────────────────────────
+   DIV2 Map Maker – Stylesheet
+   Mobile-first dark theme
+──────────────────────────────────────────────────────── */
+
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:           #090909;
+  --bg-panel:     #111111;
+  --bg-section:   #181818;
+  --bg-input:     #0d0d0d;
+  --border:       #282828;
+  --border-hover: #3a3a3a;
+  --text:         #d8d8d8;
+  --text-muted:   #666;
+  --accent:       #e8a020;
+  --accent-dark:  #b07a14;
+  --danger:       #c0392b;
+  --danger-dark:  #922b21;
+  --header-h:     48px;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── App shell ── */
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* ── Header ── */
+#app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  height: var(--header-h);
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  z-index: 1001;
+  position: relative;
+}
+
+#header-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+
+#toggle-panel {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.35rem 0.65rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: border-color 0.2s;
+}
+#toggle-panel:hover { border-color: var(--border-hover); }
+
+/* ── Map ── */
+#map {
+  flex: 1;
+  min-height: 0;
+  z-index: 1;
+}
+
+/* ── Side / bottom panel ── */
+#side-panel {
+  position: fixed;
+  left: 0; right: 0;
+  bottom: 0;
+  height: 60vh;
+  max-height: calc(100vh - var(--header-h));
+  background: var(--bg-panel);
+  border-top: 1px solid var(--border);
+  overflow-y: auto;
+  z-index: 1000;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+#side-panel.panel-open {
+  transform: translateY(0);
+}
+
+.panel-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+
+/* ── Panel sections ── */
+.panel-section {
+  background: var(--bg-section);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.75rem;
+}
+
+.panel-section label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.section-heading {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* ── Pin counter ── */
+.pin-counter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+}
+
+#pin-count {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.counter-sep {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.counter-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: 0.25rem;
+}
+
+/* ── Inputs ── */
+input[type="text"] {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.5rem 0.65rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* ── Category grid ── */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+}
+
+.cat-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.45rem 0.25rem;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.cat-btn:hover { border-color: var(--border-hover); }
+
+.cat-btn.active {
+  border-color: var(--accent);
+  background: rgba(232, 160, 32, 0.12);
+}
+
+.cat-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.25);
+  flex-shrink: 0;
+}
+
+/* ── Action grid ── */
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.action-btn {
+  padding: 0.6rem 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: #1c1c1c;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-family: inherit;
+  transition: background 0.2s, border-color 0.2s;
+}
+.action-btn:hover { background: #252525; border-color: var(--border-hover); }
+.action-btn.danger { color: #e74c3c; border-color: var(--danger); }
+.action-btn.danger:hover { background: rgba(192,57,43,0.1); }
+
+/* ── Pin list ── */
+#pin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.empty-hint {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.pin-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.5rem;
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.pin-row:hover { border-color: var(--border-hover); }
+
+.pin-row-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  flex-shrink: 0;
+}
+
+.pin-row-info { flex: 1; min-width: 0; }
+
+.pin-row-name {
+  font-size: 0.78rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pin-row-coords {
+  font-size: 0.62rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.pin-row-del {
+  background: none;
+  border: none;
+  color: #444;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0 0.2rem;
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+.pin-row-del:hover { color: #e74c3c; }
+
+/* ── Modals ── */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+}
+.modal.hidden { display: none; }
+
+.modal-box {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 360px;
+}
+
+.modal-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.modal-label {
+  display: block;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.optional {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.7rem;
+}
+
+.modal-coords {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.modal-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.btn-primary, .btn-secondary {
+  flex: 1;
+  padding: 0.65rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-family: inherit;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+.btn-primary:hover { background: var(--accent-dark); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+}
+.btn-secondary:hover { background: #1c1c1c; }
+
+/* ── Toast ── */
+#toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #1e1e1e;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  z-index: 3000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  white-space: nowrap;
+  max-width: 90vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Zone label tooltips ── */
+.leaflet-tooltip.zone-label {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.28);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  pointer-events: none;
+  white-space: nowrap;
+  text-shadow: 0 0 6px #000, 0 0 3px #000;
+}
+.leaflet-tooltip.zone-label::before { display: none; }
+
+/* ── Leaflet overrides (dark UI) ── */
+.leaflet-control-zoom a {
+  background: var(--bg-panel) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+.leaflet-control-zoom a:hover {
+  background: var(--bg-section) !important;
+  color: var(--accent) !important;
+}
+.leaflet-control-attribution {
+  background: rgba(9,9,9,0.75) !important;
+  color: #444 !important;
+  font-size: 9px !important;
+}
+.leaflet-control-attribution a { color: #555 !important; }
+
+.leaflet-popup-content-wrapper {
+  background: var(--bg-panel) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 5px !important;
+  color: var(--text) !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.8) !important;
+}
+.leaflet-popup-tip { background: var(--bg-panel) !important; }
+.leaflet-popup-content { margin: 0.6rem 0.75rem !important; font-size: 0.82rem; }
+.leaflet-popup-close-button { color: var(--text-muted) !important; }
+
+/* ── Desktop / tablet layout ── */
+@media (min-width: 768px) {
+  #app {
+    flex-direction: row;
+  }
+
+  #app-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1002;
+  }
+
+  #map {
+    flex: 1;
+    height: 100%;
+    margin-top: var(--header-h);
+  }
+
+  /* Side panel is always a sidebar on desktop */
+  #side-panel {
+    position: relative;
+    top: 0; left: 0; bottom: 0;
+    width: 290px;
+    height: calc(100vh - var(--header-h));
+    margin-top: var(--header-h);
+    border-top: none;
+    border-right: 1px solid var(--border);
+    transform: none !important;
+    display: none;
+    flex-direction: column;
+  }
+
+  #side-panel.panel-open {
+    display: flex;
+    transform: none !important;
+  }
+
+  #pin-list {
+    max-height: none;
+    flex: 1;
+  }
+}
