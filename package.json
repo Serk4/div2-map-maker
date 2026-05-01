@@ -1,0 +1,15 @@
+{
+  "name": "div2-map-maker",
+  "version": "1.0.0",
+  "description": "A browser-based map-pin tool for **The Division 2**, set over a dark-themed real-world Washington DC map. Place, label, categorise, save, load, and share custom pins with no account or server required.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "leaflet": "^1.9.4"
+  }
+}
